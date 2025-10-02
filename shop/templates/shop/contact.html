@@ -1,0 +1,68 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="contact-section py-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                <img src="{% static 'shop/images/Contact/Contactbaby.png' %}" alt="" style="max-width: 380px;" class="d-block mx-auto">
+            </div>
+            <div class="col-md-7">
+                <form method="post" novalidate class="needs-validation">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="id_first_name" class="form-label">First Name</label>
+                            <input type="text" name="first_name" class="form-control border-top-0 border-start-0 border-end-0" id="id_first_name" value="{{ form.first_name.value|default_if_none:'' }}" required>
+                            {% if form.first_name.errors %}
+                            <div class="text-danger mt-1 field-error">{{ form.first_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <label for="id_last_name" class="form-label">Last Name</label>
+                            <input type="text" name="last_name" class="form-control border-top-0 border-start-0 border-end-0" id="id_last_name" value="{{ form.last_name.value|default_if_none:'' }}" required>
+                            {% if form.last_name.errors %}
+                            <div class="text-danger mt-1 field-error">{{ form.last_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="id_email" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control border-top-0 border-start-0 border-end-0" id="id_email" value="{{ form.email.value|default_if_none:'' }}" required>
+                            {% if form.email.errors %}
+                            <div class="text-danger mt-1 field-error">{{ form.email.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <label for="id_phone_number" class="form-label">Phone Number</label>
+                            <input type="text" name="phone_number" class="form-control border-top-0 border-start-0 border-end-0" id="id_phone_number" value="{{ form.phone_number.value|default_if_none:'' }}" required>
+                            {% if form.phone_number.errors %}
+                            <div class="text-danger mt-1 field-error">{{ form.phone_number.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_message" class="form-label">Message</label>
+                        <textarea name="message" class="form-control" id="id_message" rows="4" required>{{ form.message.value|default_if_none:'' }}</textarea>
+                        {% if form.message.errors %}
+                        <div class="text-danger mt-1 field-error">{{ form.message.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-info px-4 py-2" style="background:#00c4e6;color:#fff;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            document.querySelectorAll('.field-error').forEach(function(el) {
+                el.style.display = 'none';
+            });
+        }, 3000);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: babyecommerce-app
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn babyecommerce.wsgi
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        value: your-secret-key-here
+      - key: DEBUG
+        value: False
+      - key: PYTHON_VERSION
+        value: 3.11
+    staticPublishPath: staticfiles
+    autoDeploy: true

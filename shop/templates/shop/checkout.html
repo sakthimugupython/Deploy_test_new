@@ -1,0 +1,161 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<section class="checkout-section py-5">
+    {% if alert_message %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      {{ alert_message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <form method="post" id="checkout-address-form" class="bg-light p-4 rounded shadow">
+                    {% csrf_token %}
+                    <h4 class="mb-4" style="font-weight:700;">Shipping Address</h4>
+                    {% if saved_addresses %}
+                    <div class="mb-4">
+                        <label class="mb-2">Select a saved address:</label>
+                        {% for addr in saved_addresses %}
+                        <div class="form-check mb-2">
+                            <input class="form-check-input form-control" type="radio" name="address_select" id="addr{{ addr.id }}" value="{{ addr.id }}" {% if request.session.last_address_id|default:'' == addr.id %}checked{% endif %}>
+                            <label class="form-check-label" for="addr{{ addr.id }}">
+                                {{ addr.full_name }}, {{ addr.address_line1 }}, {{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}<br>
+                                <small>{{ addr.phone }}{% if addr.landmark %}, {{ addr.landmark }}{% endif %}</small>
+                            </label>
+                            <a href="{% url 'edit_address' addr.id %}" class="btn btn-sm btn-outline-info ms-2">Edit</a>
+                            <a href="{% url 'delete_address' addr.id %}" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                        </div>
+                        {% endfor %}
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="address_select" id="newaddr" value="new" checked>
+                            <label class="form-check-label" for="newaddr">Use a new address</label>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if save_success %}
+                    <div class="alert alert-success">Address saved successfully!</div>
+                    {% endif %}
+                    {{ form.non_field_errors }}
+                    <div class="mb-3">
+                        {{ form.full_name.label_tag }}<span class="text-danger">*</span>
+                        {{ form.full_name }}
+                        {{ form.full_name.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.phone.label_tag }}<span class="text-danger">*</span>
+                        {{ form.phone }}
+                        {{ form.phone.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.address_line1.label_tag }}<span class="text-danger">*</span>
+                        {{ form.address_line1 }}
+                        {{ form.address_line1.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.address_line2.label_tag }}
+                        {{ form.address_line2 }}
+                        {{ form.address_line2.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.city.label_tag }}<span class="text-danger">*</span>
+                        {{ form.city }}
+                        {{ form.city.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.state.label_tag }}<span class="text-danger">*</span>
+                        {{ form.state }}
+                        {{ form.state.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.pincode.label_tag }}<span class="text-danger">*</span>
+                        {{ form.pincode }}
+                        {{ form.pincode.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.landmark.label_tag }}
+                        {{ form.landmark }}
+                        {{ form.landmark.errors }}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.save_for_future }}
+                        <label class="form-check-label">Save this address for future orders</label>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" name="save_address" class="btn btn-outline-info flex-fill py-2" style="font-weight:600;font-size:1.1rem;">Save Address</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-5">
+                <div class="card p-4 mb-3" style="border:2px solid #00CFFF;">
+                    <h5 class="mb-3" style="font-weight:700;">Cart Total</h5>
+                    <div class="d-flex justify-content-between mb-2"><span>Subtotal:</span><span>₹ {{ subtotal|floatformat:0 }}</span></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Discount:</span><span>{% if discount %}- ₹ {{ discount|floatformat:0 }}{% else %}₹ 0{% endif %}</span></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Shipping:</span><span>Free</span></div>
+                    <div class="d-flex justify-content-between border-top pt-2 mt-2"><span style="font-weight:600;">Total:</span><span style="font-weight:700;font-size:1.2rem;">₹ {{ total|floatformat:0 }}</span></div>
+                    <div class="mt-4 mb-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/40px-Google_%22G%22_Logo.svg.png" style="height:28px;margin-right:8px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/32px-Apple_logo_black.svg.png" style="height:28px;margin-right:8px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/60px-Amazon_logo.svg.png" style="height:28px;margin-right:8px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/40px-PayPal.svg.png" style="height:28px;margin-right:8px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Mastercard-logo.png/40px-Mastercard-logo.png" style="height:28px;margin-right:8px;">
+                        <span class="btn btn-outline-info btn-sm">+ ADD</span>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="payment_method" id="cod" checked>
+                        <label class="form-check-label" for="cod">Cash on delivery</label>
+                    </div>
+                    <button id="cartTotalPlaceOrderBtn" class="btn btn-info w-100 py-2" style="font-weight:600;font-size:1.2rem;" disabled>Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function checkPlaceOrderEnable() {
+        const cartTotalBtn = document.getElementById('cartTotalPlaceOrderBtn');
+        const addressRadios = document.querySelectorAll('input[name="address_select"]');
+        let selected = null;
+        addressRadios.forEach(r => { if (r.checked) selected = r.value; });
+        if (selected && selected !== 'new') {
+            cartTotalBtn.disabled = false;
+            return;
+        }
+        // If new address, check required fields
+        let requiredFields = [
+            'id_full_name', 'id_phone', 'id_address_line1', 'id_city', 'id_state', 'id_pincode'
+        ];
+        let allFilled = requiredFields.every(id => {
+            let el = document.getElementById(id);
+            return el && el.value.trim().length > 0;
+        });
+        cartTotalBtn.disabled = !allFilled;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('input[name="address_select"]').forEach(function(radio) {
+            radio.addEventListener('change', checkPlaceOrderEnable);
+        });
+        ['id_full_name','id_phone','id_address_line1','id_city','id_state','id_pincode'].forEach(function(id) {
+            let el = document.getElementById(id);
+            if (el) el.addEventListener('input', checkPlaceOrderEnable);
+        });
+        checkPlaceOrderEnable();
+        // Cart total Place Order triggers form submit
+        const cartTotalBtn = document.getElementById('cartTotalPlaceOrderBtn');
+        const addressForm = document.getElementById('checkout-address-form');
+        if (cartTotalBtn && addressForm) {
+            cartTotalBtn.addEventListener('click', function(e) {
+                if (!cartTotalBtn.disabled) {
+                    // Add a hidden input so view knows it's a place_order
+                    let hidden = document.createElement('input');
+                    hidden.type = 'hidden';
+                    hidden.name = 'place_order';
+                    hidden.value = '1';
+                    addressForm.appendChild(hidden);
+                    addressForm.submit();
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

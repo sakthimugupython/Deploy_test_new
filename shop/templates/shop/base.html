@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Baby E-Commerce{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'shop/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-evenly   ">
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <img src="{% static 'shop/images/logo.png' %}" alt="" width="200">
+                </a>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto gap-3 mb-2 mb-lg-0">
+                    <li class="nav-item fs-4 fw-semibold">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown fs-4 fw-semibold">
+                        <a class="nav-link dropdown-toggle active" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="productsDropdown">
+                            <li><a class="dropdown-item custom-dropdown-item fs-5" href="/products/diaper/">Diaper</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item fs-5" href="/products/boys-fashion/">Boys Fashion</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item fs-5" href="/products/girls-fashion/">Girls Fashion</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item fs-5" href="/products/soap/">Soap</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item fs-5" href="/products/stroller/">Stroller</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item fs-5" href="/products/bottle/">Bottle</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item fs-4 fw-semibold">
+                        <a class="nav-link" href="/offers/">Offers</a>
+                    </li>
+                    <li class="nav-item fs-4 fw-semibold">
+                        <a class="nav-link" href="/about/">About</a>
+                    </li>
+                    <li class="nav-item fs-4 fw-semibold">
+                        <a class="nav-link" href="/contacts/">Contacts</a>
+                    </li>
+                </ul>
+                <form class="d-flex me-3" role="search" style="max-width: 250px;" method="get" action="/search/">
+                    <input class="form-control me-1" type="search" name="q" placeholder="Search..." aria-label="Search">
+                </form>
+                <a href="/cart/" class="me-3 position-relative" style="color: inherit;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="9" cy="21" r="1" />
+                        <circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="nav-link px-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0 0 14A7 7 0 0 0 8 1zm0 12a5 5 0 0 1-4.546-2.916c.03-.964 1.99-1.484 4.546-1.484 2.554 0 4.514.52 4.546 1.484A5 5 0 0 1 8 13z" />
+                    </svg>
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="nav-link px-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0 0 14A7 7 0 0 0 8 1zm0 12a5 5 0 0 1-4.546-2.916c.03-.964 1.99-1.484 4.546-1.484 2.554 0 4.514.52 4.546 1.484A5 5 0 0 1 8 13z" />
+                    </svg>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid p-0">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="site-footer mt-5 pt-4 pb-2">
+        <div class="container">
+            <div class="row text-start gy-4">
+                <div class="col-12 col-md-3">
+                    <div class="footer-title">KNOW</div>
+                    <hr>
+                    <ul class="footer-list">
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="#">About Earthbubs Store</a></li>
+                        <li><a href="#">Bulk Purchase & Corporate Gifts</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="footer-title">TERMS & CONDITIONS</div>
+                    <hr>
+                    <ul class="footer-list">
+                        <li><a href="#">Shipping & Return Policies</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">FAQ’s</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="footer-title">CONTACT US</div>
+                    <hr>
+                    <ul class="footer-list">
+                        <li>For Sale: Earthbubs@co.in</li>
+                        <li>Call: +91 1234567890</li>
+                        <li>For Complaints: 1800 202 2222</li>
+                        <li>Chat Time: Our Team is Available<br>From Monday to Saturday from 9.00AM to 8.00PM</li>
+                        <li>For Complaints: Ebcustomercare.com</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="footer-title">FOLLOW US</div>
+                    <hr>
+                    <div class="footer-social">
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="text-center copyright">
+                Copyright © 2025 All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('input[name="q"]');
+    if (!searchInput) return;
+    let suggestionBox;
+
+    function removeSuggestions() {
+        if (suggestionBox) {
+            suggestionBox.remove();
+            suggestionBox = null;
+        }
+    }
+
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim();
+        removeSuggestions();
+        if (query.length < 2) return;
+        fetch(`/suggest/?q=${encodeURIComponent(query)}`)
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.suggestions.length === 0) return;
+                suggestionBox = document.createElement('div');
+                suggestionBox.className = 'autocomplete-suggestions border bg-white shadow-sm';
+                suggestionBox.style.position = 'absolute';
+                suggestionBox.style.zIndex = 9999;
+                const rect = searchInput.getBoundingClientRect();
+                suggestionBox.style.left = rect.left + window.scrollX + 'px';
+                suggestionBox.style.top = (rect.bottom + window.scrollY) + 'px';
+                suggestionBox.style.width = searchInput.offsetWidth + 'px';
+
+                data.suggestions.forEach(title => {
+                    const item = document.createElement('div');
+                    item.className = 'autocomplete-item px-3 py-2';
+                    item.style.cursor = 'pointer';
+                    item.textContent = title;
+                    item.onclick = function() {
+                        searchInput.value = title;
+                        removeSuggestions();
+                        searchInput.form.submit();
+                    };
+                    suggestionBox.appendChild(item);
+                });
+                document.body.appendChild(suggestionBox);
+            });
+    });
+
+    searchInput.addEventListener('blur', () => setTimeout(removeSuggestions, 150));
+});
+</script>
+<style>
+.autocomplete-suggestions { border-radius: 0 0 0.5rem 0.5rem; }
+.autocomplete-item:hover { background: #f0f7ff; }
+</style>
+</body>
+
+</html>

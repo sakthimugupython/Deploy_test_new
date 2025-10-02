@@ -1,0 +1,53 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4">{{ category }}</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 position-relative shadow-sm" style="border-radius:18px; border-color: #aef; overflow:hidden;">
+                    {% if product.is_new %}
+                    <span class="badge bg-info position-absolute top-0 start-0 m-2 fs-6" style="border-radius:10px 0 10px 0;">NEW</span>
+                    {% endif %}
+                    <div class="d-flex justify-content-center align-items-center pt-4 pb-2">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}" style="width:180px; height:200px; object-fit:contain;">
+                        {% endif %}
+                    </div>
+                    <div class="card-body pt-2 pb-3" style="background:#aef; border-radius:0 0 18px 18px;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title fw-bold mb-0">{{ product.title }}</h5>
+                            <a href="/cart/add/{{ product.id }}/" class="btn btn-info btn-sm px-3">Buy</a>
+                        </div>
+                        <div class="mb-2">
+                            {% if product.rating %}
+                            {% for i in "12345"|slice:":"|make_list %}
+                            {% if i|add:'0' <= product.rating|stringformat:'d' %}
+                            <span class="text-warning fs-6">&#9733;</span>
+                            {% else %}
+                            <span class="text-warning fs-4">&#9733;</span>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <span class="text-secondary">No rating</span>
+                            {% endif %}
+                        </div>
+                        <div class="mb-1">
+                            {% if product.mrp %}
+                            <span class="text-decoration-line-through fs-6 text-muted me-2">MRP ₹{{ product.mrp|floatformat:2 }}</span>
+                            {% endif %}
+                            <span class="fw-bold fs-6">Price ₹{{ product.price|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">No products found in this category.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

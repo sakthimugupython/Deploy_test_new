@@ -1,0 +1,284 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Home | EarthBubs{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'shop/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="home-hero">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 text-white">
+                <h1 class="display-4 mb-3" style="font-weight: 600;">Gentle Care for Growing Joy</h1>
+                <p class="lead">Premium baby care products crafted with love, purity, and the softest materials – because your baby deserves the best.</p>
+            </div>
+            <div class="col-md-6 d-none d-md-block">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Categories Section -->
+<section class="featured-categories py-5">
+    <div class="container">
+        <h2 class="text-center mb-2 pb-2" style="font-weight:700;font-size:3rem;">Featured Categories</h2>
+        <p class="text-center mb-4 pb-3" style="font-weight:500;font-size:1.5rem;">Everything Your Baby Needs</p>
+        <div class="row justify-content-center">
+            {% for category in categories %}
+            <div class="col-12 col-sm-6 col-md-3 mb-4 d-flex align-items-stretch">
+                <div class="product-card position-relative h-100">
+                    <div class="product-image-section">
+                        <img src="{% static category.image %}" alt="{{ category.name }}" class="product-image">
+                    </div>
+                    <div class="product-info-section d-flex justify-content-between align-items-center px-3 py-2">
+                        <h4 class="product-title mb-0">{{ category.name }}</h4>
+                        <a href="{{ category.url }}" class="arrow-button ms-2 fs-3" style="text-decoration:none; color:inherit;">
+                            ↗
+                        </a>
+                    </div>
+                    <a href="{{ category.url }}" class="stretched-link"></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Why Parents Trust Us Section -->
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+            <h1 class="main-title">Why Parents Trust Us</h1>
+            <p class="subtitle">Designed with Love. Backed by Science.</p>
+        </div>
+
+        <!-- Trust Features Grid -->
+        <div class="row justify-content-center">
+            <!-- Dermatologist Approved -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                <div class="trust-card">
+                    <div class="icon-section">
+                        <div class="icon-wrapper">
+                            <img src="{% static 'shop/images/Home/parent1.png' %}" alt="Dermatologist Approved" class="trust-icon">
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h5 class="card-title">Dermatologist Approved</h5>
+                        <p class="card-text">Every product is tested and safe for even the most sensitive baby skin.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Natural & Non-Toxic Ingredients -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                <div class="trust-card">
+                    <div class="icon-section">
+                        <div class="icon-wrapper">
+                            <img src="{% static 'shop/images/Home/parent2.png' %}" alt="Natural & Non-Toxic Ingredients" class="trust-icon">
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h5 class="card-title">Natural & Non-Toxic Ingredients</h5>
+                        <p class="card-text">We use only gentle, plant based formulas free from harsh chemicals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loved by Thousands of Parents -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                <div class="trust-card">
+                    <div class="icon-section">
+                        <div class="icon-wrapper">
+                            <img src="{% static 'shop/images/Home/parent3.png' %}" alt="Loved by Thousands of Parents" class="trust-icon">
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h5 class="card-title">Loved by Thousands of Parents</h5>
+                        <p class="card-text">Real reviews, real results trusted by families across the country.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eco-Friendly Promise -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                <div class="trust-card">
+                    <div class="icon-section">
+                        <div class="icon-wrapper">
+                            <img src="{% static 'shop/images/Home/parent4.png' %}" alt="Eco-Friendly Promise" class="trust-icon">
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h5 class="card-title">Eco-Friendly Promise</h5>
+                        <p class="card-text">From biodegradable packaging to cruelty-free manufacturing, we care for the planet as much as your baby.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fast & Reliable Shipping -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                <div class="trust-card">
+                    <div class="icon-section">
+                        <div class="icon-wrapper">
+                            <img src="{% static 'shop/images/Home/parent5.png' %}" alt="Fast & Reliable Shipping" class="trust-icon">
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h5 class="card-title">Fast & Reliable Shipping</h5>
+                        <p class="card-text">We deliver your baby's essentials swiftly and safely because every moment counts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Best Sellers Section -->
+<section class="featured-categories py-5">
+    <div class="container-fluid">
+        <h2 class="text-center mb-2 pb-2" style="font-weight:700;font-size:3rem;">Best Sellers</h2>
+        <p class="text-center mb-4 pb-3" style="font-weight:500;font-size:1.5rem;">Our Most Loved Products</p>
+        <div class="row justify-content-evenly">
+            {% for bestsellers in bestsellers %}
+            <div class="col-12 col-sm-6 col-md-3 mb-4 d-flex align-items-stretch">
+                <div class="product-card position-relative h-100">
+                    <div class="product-image-section">
+                        <img src="{% static bestsellers.image %}" alt="{{ bestsellers.name }}" class="product-image">
+                    </div>
+                    <div class="product-info-section d-flex justify-content-between align-items-center px-3 py-2">
+                        <h4 class="product-title mb-0">{{ bestsellers.name }} <br>{{ bestsellers.rating }} <br>
+                            <p class="fs-6 text-muted   ">MRP {{ bestsellers.old_price }} <span class="fw-bold text-dark">Price : {{ bestsellers.price }}</span></p>
+                        </h4>
+                        <div class="arrow-buttons ms-2 fs-5 ">
+                            <button class="btn border-0 text-dark fw-bold fs-4" style="border-radius: 70%;background-color: #B0E4F4;">Buy</button>
+                        </div>
+                    </div>
+                    <a href="{{ bestsellers.url }}" class="stretched-link"></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Trending Products Section -->
+<section class="trending-products py-5">
+    <div class="container d-block mx-auto">
+        <h2 class="text-center mb-1 pb-1" style="font-weight:700;font-size:3rem;">Trending Products</h2>
+        <p class="text-center mb-4 pb-3" style="font-weight:500;font-size:1.2rem;">Parent Favorites, Baby Approved</p>
+        <div class="row justify-content-center pt-5">
+            <div class="col-12 col-md-5 mb-4 mb-md-0">
+                <img src="{% static 'shop/images/Home/trending1.png' %}" alt="Baby Stroller" class="img-fluid rounded-top-5 rounded-end-0 shadow-sm">
+            </div>
+            <div class="col-12 col-md-6 d-flex flex-column align-items-start">
+                <h3 class="fw-bold mb-3 ps-5" style="font-size:3rem;">Baby Stroller</h3>
+                <p class="mb-4 ps-5" style="font-size:1.4rem;">Explore the world in comfort with our smooth and stylish baby stroller. Designed for safety, ease, and flexibility perfect for every little adventure. Lightweight, foldable, and parent-friendly for life on the go.</p>
+                <a href="/products/stroller/" class="btn btn-info ms-5 px-4 py-2 fw-semibold shadow-sm" style="background:#b0e4f4;color:#222;border-radius:2rem;font-size:1rem;">
+                    Buy Now
+                </a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-12 col-md-6 d-flex flex-column align-items-start">
+                <h3 class="fw-bold mb-3" style="font-size:3rem;">Feeding Bottle</h3>
+                <p class="mb-4" style="font-size:1.4rem;">The baby feeding bottle is made from 100% BPA-free, safe materials. Its soft silicone nipple feels natural and gentle on the baby's mouth. The anti-colic design helps reduce gas and fussiness during feeding. It's lightweight, easy to hold, and perfect for everyday use.</p>
+                <a href="/products/bottle" class="btn btn-info px-4 py-2 fw-semibold shadow-sm" style="background:#b0e4f4;color:#222;border-radius:2rem;font-size:1rem;">
+                    Buy Now
+                </a>
+            </div>
+            <div class="col-12 col-md-5 mb-4 mb-md-0">
+                <img src="{% static 'shop/images/Home/trending2.png' %}" alt="Baby Stroller" class="img-fluid rounded-top-0 rounded-end-5    shadow-sm">
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-12 col-md-5 mb-4 mb-md-0">
+                <img src="{% static 'shop/images/Home/trending3.png' %}" alt="Baby Stroller" class="img-fluid rounded-top-5 rounded-end-0 shadow-sm">
+            </div>
+            <div class="col-12 col-md-6 d-flex flex-column align-items-start">
+                <h3 class="fw-bold mb-3" style="font-size:3rem;">Pampers</h3>
+                <p class="mb-4" style="font-size:1.4rem;">Keep your baby dry, comfy, and smiling all day with our ultra-soft diapers. Designed with leak-lock technology and breathable layers for extra protection. Gentle on delicate skin, perfect for day and night comfort.</p>
+                <a href="/products/diaper" class="btn btn-info px-4 py-2 fw-semibold shadow-sm" style="background:#b0e4f4;color:#222;border-radius:2rem;font-size:1rem;">
+                    Buy Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5" style="background: #fff;">
+    <div class="container">
+        <h2 class="text-center mb-4" style="font-weight:700;font-size:3rem;">Frequently Asked Questions</h2>
+        <p class="text-center mb-4 pb-3" style="font-weight:500;font-size:1.2rem;">We're Here to Help - Every Step of the Way</p>
+        <div class="faq-list mx-auto" style="max-width:900px;">
+            <div class="faq-item py-3 border-bottom border-info">
+                <button class="faq-question btn w-100 text-start fw-bold mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1" style="color:#18102B;font-size:1.2rem;background:none;">
+                    Are your products safe for newborns?
+                </button>
+                <div class="collapse" id="faq1">
+                    <div class="faq-answer ps-4 pb-2">
+                        Yes, all our products are dermatologically tested and safe for newborns and sensitive baby skin.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item py-3 border-bottom border-info">
+                <button class="faq-question btn w-100 text-start fw-bold mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2" style="color:#18102B;font-size:1.2rem;background:none;">
+                    How long does delivery take?
+                </button>
+                <div class="collapse" id="faq2">
+                    <div class="faq-answer ps-4 pb-2">
+                        Standard delivery takes 3-7 business days depending on your location. Express options are available at checkout.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item py-3 border-bottom border-info">
+                <button class="faq-question btn w-100 text-start fw-bold mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3" style="color:#18102B;font-size:1.2rem;background:none;">
+                    Can I return or exchange a product?
+                </button>
+                <div class="collapse" id="faq3">
+                    <div class="faq-answer ps-4 pb-2">
+                        Yes, we offer a 15-day return or exchange policy for unopened and unused products. Please see our Returns page for details.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item py-3 border-bottom border-info">
+                <button class="faq-question btn w-100 text-start fw-bold mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4" style="color:#18102B;font-size:1.2rem;background:none;">
+                    What payment methods do you accept?
+                </button>
+                <div class="collapse" id="faq4">
+                    <div class="faq-answer ps-4 pb-2">
+                        We accept credit/debit cards, net banking, UPI, and popular wallets for your convenience.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item py-3 border-bottom border-info">
+                <button class="faq-question btn w-100 text-start fw-bold mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5" style="color:#18102B;font-size:1.2rem;background:none;">
+                    Are your skincare products organic or natural?
+                </button>
+                <div class="collapse" id="faq5">
+                    <div class="faq-answer ps-4 pb-2">
+                        Most of our skincare range is organic and made from natural, plant-based ingredients. Please check product details for specifics.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item py-3 border-bottom border-info">
+                <button class="faq-question btn w-100 text-start fw-bold mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6" style="color:#18102B;font-size:1.2rem;background:none;">
+                    How can I contact customer support?
+                </button>
+                <div class="collapse" id="faq6">
+                    <div class="faq-answer ps-4 pb-2">
+                        You can reach us via our Contact page or email us at Earthbuts@gmail.com for any assistance.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

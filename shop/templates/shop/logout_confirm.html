@@ -1,0 +1,14 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="card p-4 shadow" style="max-width: 400px;">
+        <h4 class="mb-3">Confirm Logout</h4>
+        <p>Are you sure you want to logout?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+            <a href="/" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
